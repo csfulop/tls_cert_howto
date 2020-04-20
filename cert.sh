@@ -42,10 +42,18 @@ function generateServerCert() {
 }
 
 
+function verifyServerCert() {
+  openssl verify \
+    -CAfile $OUT/ca-cert.pem \
+    $OUT/server-cert.pem
+}
+
+
 function main() {
   init
   generateCA
   generateServerCert
+  verifyServerCert
 }
 
 main
