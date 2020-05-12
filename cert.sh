@@ -1,4 +1,4 @@
-#!/bin/bash -ex
+#!/bin/bash -eux
 
 # FIMXE: get from cli param
 OPT_NO_PASSWORD="-nodes"
@@ -139,4 +139,5 @@ function main() {
   # FIXME: install Root CA into the system and use it for validation
 }
 
-main |& tee log.txt
+
+main |& tee cert.log
