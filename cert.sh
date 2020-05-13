@@ -1,10 +1,15 @@
 #!/bin/bash -eux
 
 # FIMXE: get from cli param
-OPT_NO_PASSWORD="-nodes"
-PW_NAME_PART=""
-# OPT_NO_PASSWORD=""
-# PW_NAME_PART="-pw"
+PASSWORD=0
+
+if (( PASSWORD == 1 )); then
+  OPT_NO_PASSWORD=""
+  PW_NAME_PART="-pw"
+else
+  OPT_NO_PASSWORD="-nodes"
+  PW_NAME_PART=""
+fi
 
 OUT=out${PW_NAME_PART}
 CA=$OUT/ca${PW_NAME_PART}
@@ -145,7 +150,6 @@ function main() {
   generateServerCertWithIntermediateCA
   verifyServerCertWithIntermediateCA
 
-  # FIXME: chain cert
   createCertChain
 
   # FIXME: install Root CA into the system and use it for validation
