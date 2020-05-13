@@ -34,18 +34,20 @@ function signServerCertWithPKCS1PrivateKey() {
   if ls $KEYS/*pw* &>/dev/null; then
     PW_NAME_PART="-pw"
   fi
+  local CA=ca${PW_NAME_PART}
+  local SERVER=server${PW_NAME_PART}
 
   # sign the CSR with the CA private key
   openssl x509 -req -days 365 \
-    -in $KEYS/server${PW_NAME_PART}-req.pem \
-    -CA $KEYS/ca${PW_NAME_PART}-cert.pem \
-    -CAkey $KEYS/ca${PW_NAME_PART}-key-pkcs1.pem \
+    -in $KEYS/$SERVER-req.pem \
+    -CA $KEYS/$CA-cert.pem \
+    -CAkey $KEYS/$CA-key-pkcs1.pem \
     -CAcreateserial \
-    -out $KEYS/server${PW_NAME_PART}-cert2.pem \
+    -out $KEYS/$SERVER-cert2.pem \
     -extfile server-ext.cnf
 
   # output the server cert in text format
-  openssl x509 -in $KEYS/server${PW_NAME_PART}-cert2.pem -noout -text
+  openssl x509 -in $KEYS/$SERVER-cert2.pem -noout -text
 }
 
 
